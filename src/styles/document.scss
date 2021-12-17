@@ -1,0 +1,21 @@
+
+.doc-container{
+	display: inline-flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 150px;
+	padding: 25px;
+	border-radius: 7px;
+	color: black;
+
+	.doc-title{
+		font-size: 16px;
+    font-weight: 500;
+		text-transform: capitalize;
+	}
+	
+	&:hover, &:active, &:focus{
+		background-color: rgba(5, 184, 255, .4);
+	}
+}
