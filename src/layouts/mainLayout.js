@@ -1,13 +1,17 @@
-import React, { useContext } from 'react'
 import { Container, Form, FormControl, Nav, Navbar } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { usersData } from '../components/Home';
+import switchCookiesToObjects from '../helpers/switchCookiesToObjects'
+
+
 
 
 function MainLayout({children}) {
 
-	const data = useContext(usersData)
+	const userData = useSelector(state => state.userData?.userData?.jwt)
+
+	const data = useSelector(state => state.userDocuments.data.data)
 	
 	return (
 		<>
@@ -27,7 +31,7 @@ function MainLayout({children}) {
 								</Link>
 							</Nav.Link>
 							<Nav.Link>
-								<Link to={`edit/${data.length + 1}`} className="navLink">
+								<Link to={`edit/${data?.length + 1}`} className="navLink">
 									New
 								</Link>
 							</Nav.Link>
@@ -40,20 +44,29 @@ function MainLayout({children}) {
 								aria-label="Search"
 							/>
 						</Form>
-						<Button>
-							<Nav.Link href="/signup" >
-								<Link to='/signup' className="navLink">
-									Sign Up
-								</Link>
-							</Nav.Link>
-						</Button>
-						<Button>
-							<Nav.Link href="/signup" >
-								<Link to='/login' className="navLink">
-									Login
-								</Link>
-							</Nav.Link>
-						</Button>
+							{
+								switchCookiesToObjects.docsCloneToken || userData ? (
+									<p>hello</p>
+								) : (
+									<>
+										<Button>
+											<Nav.Link href="/signup" >
+												<Link to='/signup' className="navLink">
+													Sign Up
+												</Link>
+											</Nav.Link>
+										</Button>
+										<Button>
+											<Nav.Link href="/signup" >
+												<Link to='/login' className="navLink">
+													Login
+												</Link>
+											</Nav.Link>
+										</Button>
+									</>
+
+								)
+							}
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>

@@ -1,12 +1,13 @@
 import { call, put} from 'redux-saga/effects'
-import { setUserData } from '../../ducks/userData'
+import { setUser } from '../../ducks/userData'
 import { requestGetUserData } from '../requests/userData'
 
-export function* handleGetUserData(action) {
+export function* handleGetUserData(action) {	
 	try {
-		const response = yield call(requestGetUserData)
+		const response = yield call(requestGetUserData, action.payload)
 		const { data } = response
-		yield put(setUserData(data))
+		document.cookie=`docsCloneToken=${data.jwt}`;  
+		yield put(setUser(data))
 	} catch (err) {
 		console.log(err)
 	}

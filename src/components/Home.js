@@ -1,39 +1,43 @@
-import { useEffect, useState, createContext } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MainLayout from '../layouts/mainLayout'
-import {userData} from '../redux/ducks/userData'
+import {userDocuments} from '../redux/ducks/userDocuments'
 import Document from './Document'
+import switchCookiesToObjects from '../helpers/switchCookiesToObjects'
 
 
-export const usersData = createContext()
 
 function Home() {
-
-	const [documents, setDocuments] = useState([])
 	
 	const dispatch = useDispatch()
 
-	const documentsData = useSelector(state => state.userData.data)
+	const documentsData = useSelector(state => state.userDocuments.data.data)
+	const userData = useSelector(state => state.userData?.userData?.jwt)
 	
+	let cookieToken = switchCookiesToObjects.docsCloneToken
+
+	if(!cookieToken) {
+		cookieToken = userData
+	}
 
 	useEffect(() => {
-		dispatch(userData())
-		// axios.get('http://localhost:1337/api/documents/').then(res => {
-		// 	setDocuments(res.data.data)
-		// })
+		if(switchCookiesToObjects.docsCloneToken || userData){
+			dispatch(userDocuments({
+				cookieToken
+			}))
+		} else {
+			console.log('please login')
+		}
 
-	}, [dispatch])
+	}, [cookieToken, userData, dispatch]);
 
-	console.log(documentsData)
 
 	return (
-		<usersData.Provider value={documents}>
-			<MainLayout>
-				{documents.map(doc => (
-					<Document key={doc.id} id={doc.id} attributes={doc.attributes} />
-				))}
-			</MainLayout>
-		</usersData.Provider>
+		<MainLayout>
+			{documentsData?.map(doc => (
+				<Document key={doc.id} id={doc.id} attributes={doc.attributes} />
+			))}
+		</MainLayout>
 	)
 }
 

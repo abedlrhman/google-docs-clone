@@ -29,6 +29,15 @@ body {
 	}
 }
 
+.saveButton {
+	position: sticky;
+	bottom: 40px;
+	left: 91vw;
+	background-color: #f3f3f3 !important;
+	color: #444 !important;
+	border: 1px solid #444 !important;
+}
+
 @page {
 	margin: 1in;
 }

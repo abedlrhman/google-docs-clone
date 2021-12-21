@@ -1,10 +1,12 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import userDataReducer from './ducks/userData'
+import userDocumentsReducer from './ducks/userDocuments'
 import { watcherSaga } from './sagas/rootSaga'
 
 const reducer = combineReducers({
-	userData: userDataReducer
+	userDocuments: userDocumentsReducer,
+  userData : userDataReducer
 })
 
 const sagaMiddleware = createSagaMiddleware()
