@@ -2,6 +2,8 @@ export const GET_USER = 'GET_USER';
 export const SET_USER = 'SET_USER';
 export const CREATE_USER = 'CREATE_USER';
 export const GET_NEW_USER = 'GET_NEW_USER';
+export const GET_OWN_USER = 'GET_OWN_USER';
+export const SET_OWN_USER = 'SET_OWN_USER';
 
 
 export const getUser = payload => ({
@@ -24,14 +26,26 @@ export const getNewUser = payload => ({
 	payload
 })
 
+export const getOwnUser = payload => ({
+	type: GET_OWN_USER,
+	payload
+})
+
+export const setOwnUser = payload => ({
+	type: SET_OWN_USER,
+	payload
+})
+
 const initialState = {
-	userData: null
+	userData: null,
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state= initialState, action) => {
 	switch (action.type) {
 		case SET_USER : 
+			return { ...state, userData: action.payload }
+		case SET_OWN_USER : 
 			return { ...state, userData: action.payload }
 		case CREATE_USER :  
 			return { ...state, userData: action.payload }

@@ -12,6 +12,10 @@ function MainLayout({children}) {
 	const userData = useSelector(state => state.userData?.userData?.jwt)
 
 	const data = useSelector(state => state.userDocuments.data.data)
+
+	const userInfo = useSelector(state => state.userData.userData)
+
+	console.log(userInfo?.username)
 	
 	return (
 		<>
@@ -46,7 +50,7 @@ function MainLayout({children}) {
 						</Form>
 							{
 								switchCookiesToObjects.docsCloneToken || userData ? (
-									<p>hello</p>
+									<span className="text-center ml-3">hello <br /> {userInfo?.username}</span>
 								) : (
 									<>
 										<Button>

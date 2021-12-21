@@ -4,6 +4,7 @@ import MainLayout from '../layouts/mainLayout'
 import {userDocuments} from '../redux/ducks/userDocuments'
 import Document from './Document'
 import switchCookiesToObjects from '../helpers/switchCookiesToObjects'
+import { getOwnUser } from '../redux/ducks/userData'
 
 
 
@@ -24,6 +25,9 @@ function Home() {
 		if(switchCookiesToObjects.docsCloneToken || userData){
 			dispatch(userDocuments({
 				cookieToken
+			}))
+			dispatch(getOwnUser({
+				jwt : cookieToken,
 			}))
 		} else {
 			console.log('please login')

@@ -27,6 +27,8 @@ function TextEditor() {
 	const data = useSelector(state => state.userDocuments.data.data)
 
 	let jwt = useSelector(state => state.userData?.userData?.jwt)
+
+	const userInfo = useSelector(state => state.userData?.userData)
 	
 	const params = useParams()
 
@@ -80,12 +82,14 @@ function TextEditor() {
 				navigate('/')
 
 			} else {
+				console.log(userInfo.id)
 				const fileName = prompt('your document name')		
 				if(fileName) {
 					dispatch(setNewDocument({
 					data : {
 						content: editor.innerText,
 						title : fileName,
+						// user: userInfo.id
 					},
 					jwt,
 					}))
